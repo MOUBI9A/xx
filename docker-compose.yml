@@ -1,19 +1,17 @@
-version: '3.8'
-
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"  # Changed host port to 3001
+      - "3002:3000"  # Changed from 3001:3000
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgres://postgres:postgres@db:5432/gamehub
-      - BACKEND_URL=http://backend:8001
+      - BACKEND_URL=http://backend:8002  # Updated backend URL
     depends_on:
       - backend
     networks:
@@ -24,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8001:8001"
+      - "8002:8001"  # Changed from 8001:8001
     volumes:
       - .:/app
       - /app/node_modules
@@ -41,7 +39,7 @@ services:
   db:
     image: postgres:16
     ports:
-      - "5434:5432"
+      - "5435:5432"  # Changed from 5434 to 5435
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
